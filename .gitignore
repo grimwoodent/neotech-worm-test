@@ -1,0 +1,29 @@
+# ide
+nbproject
+.idea
+*.sublime-*
+.vim
+.vimrc
+tags
+.tags
+tmux-*.log
+.buildpath
+.project
+.settings
+
+# windows thumbnail cache
+Thumbs.db
+
+# composer vendor dir
+/vendor
+node_modules
+npm-debug.log
+
+# composer itself is not needed
+composer.phar
+
+# Mac DS_Store Files
+.DS_Store
+
+# Linter cahce
+.eslintcache
