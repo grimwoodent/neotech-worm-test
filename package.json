@@ -10,7 +10,6 @@
     "test": "mocha -r @babel/register -r ignore-styles -r jsdom-global/register test/**/*.js"
   },
   "author": "grimwoodent",
-  "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",

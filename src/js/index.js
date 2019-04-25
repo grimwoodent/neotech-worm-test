@@ -6,6 +6,7 @@ import { Display, DISPLAY_ELEMENT } from './display';
 import { INPUT_CONTROL_EVENT, INPUT_CONTROL_KEY, InputControl } from './input-control';
 import { Wall } from './wall';
 import { Score } from './score';
+import { GameInfo } from './game-info';
 
 class Game {
     /**
@@ -20,7 +21,7 @@ class Game {
         this.gameLoop = new GameLoop({
             size: 500,
             step: 30,
-            minSize: 100,
+            minSize: 70,
         });
         this.foodCourt = new FoodCourt({
             size: 5,
@@ -44,6 +45,7 @@ class Game {
         });
         this.inputControl = new InputControl({ });
         this.score = new Score({ });
+        this.gameInfo = new GameInfo();
         this.display = new Display({
             size: {
                 x: this.size.x,
@@ -79,6 +81,7 @@ class Game {
         this.display.generateField(document.getElementById('filed_holder'));
 
         this.score.willRenderTo(document.getElementById('score_holder'));
+        this.gameInfo.attachGameOverTo(document.getElementById('game-over'));
 
         this.gameLoop
             .on(LOOP_EVENT.START, () => {
@@ -90,13 +93,13 @@ class Game {
 
                 if (this.worm.isBodyPart(this.worm.getHead(), true)) {
                     this.gameLoop.stop();
-                    console.warn('Game over'); // @TODO info
+                    this.gameInfo.showGameOver();
                     return;
                 }
 
                 if (this.wall.isWall(this.worm.getHead())) {
                     this.gameLoop.stop();
-                    console.warn('Game over'); // @TODO info
+                    this.gameInfo.showGameOver();
                     return;
                 }
 

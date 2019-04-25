@@ -1,3 +1,4 @@
+html,
 body {
   padding: 0;
   margin: 0;
@@ -6,7 +7,7 @@ body {
 .content {
   width: 100px;
   height: 100px;
-  margin: 0 auto;
+  margin: 30px auto;
   padding: 15px;
 }
 
@@ -15,7 +16,7 @@ body {
   height: 1.5em;
   line-height: 1.5em;
   font-size: 1.5em;
-  font-family: "Georgia";
+  font-family: monospace;
 }
 
 .main_field {
@@ -47,6 +48,37 @@ body {
       &_head {
         background-color: #343434;
       }
+    }
+  }
+}
+
+.game_over_info {
+  width: 100%;
+  text-align: center;
+  font-size: 3em;
+  line-height: 3em;
+  font-family: monospace;
+  background-color: rgba(37, 37, 37, 0.92);
+  color: #9c0000;
+
+  &__wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &___shown {
+      visibility: visible;
+      opacity: 1;
     }
   }
 }
