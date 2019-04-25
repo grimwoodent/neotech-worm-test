@@ -3,8 +3,6 @@ import { randomInt } from './utils/random-int';
 
 /**
  * Class for control food positions
- *
- * @TODO fix generate food in worm body
  */
 export class FoodCourt {
     constructor(props = { }) {
