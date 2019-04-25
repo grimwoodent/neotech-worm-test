@@ -3,17 +3,25 @@ body {
   margin: 0;
 }
 
+.content {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.score {
+  width: 100%;
+  height: 1.5em;
+  line-height: 1.5em;
+  font-size: 1.5em;
+  font-family: "Georgia";
+}
+
 .main_field {
   width: 100%;
   height: 100%;
   background-color: #88b189;
-
-  &__wrap {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    padding: 15px;
-  }
 
   &__row {
     display: flex;
@@ -33,8 +41,12 @@ body {
     }
 
     &___worm {
-      background-color: black;
+      background-color: #000000;
       border-radius: 2px;
+
+      &_head {
+        background-color: #343434;
+      }
     }
   }
 }

@@ -9,6 +9,9 @@ const ALLOWED_TURNS = {
 
 export { WORM_DIRECTION };
 
+/**
+ * Worm entity
+ */
 export class Worm {
     constructor(props = { }) {
         const bodyProps = Object.assign({
@@ -23,6 +26,7 @@ export class Worm {
             y: bodyProps.position.y,
             direction: bodyProps.direction,
         })];
+        this._direction = bodyProps.direction; // used for change navigation only after move
     }
 
     /**
@@ -42,6 +46,7 @@ export class Worm {
             const bodyPart = this._body[i];
             const prevPart = this._body[i - 1];
 
+            // move head to worm direction
             switch (bodyPart.direction) {
                 case WORM_DIRECTION.UP:
                     bodyPart.y -= 1;
@@ -68,6 +73,8 @@ export class Worm {
             }
         }
 
+        this._direction = this._body[0].direction;
+
         return this;
     }
 
@@ -81,7 +88,7 @@ export class Worm {
             throw new Error('Empty head part');
         }
 
-        const allowedTurns = ALLOWED_TURNS[this._body[0].direction];
+        const allowedTurns = ALLOWED_TURNS[this._direction];
 
         if (allowedTurns.find((d) => d === direction)) {
             this._body[0].direction = direction;
@@ -90,8 +97,24 @@ export class Worm {
         return this;
     }
 
+    /**
+     * Return head body part
+     * @returns {WormPart}
+     */
     getHead() {
         return this._body[0];
+    }
+
+    /**
+     * Check is point is part of body
+     * @param point
+     * @param excludeHead
+     * @returns {boolean}
+     */
+    isBodyPart(point, excludeHead) {
+        const count = this._body.reduce((count, part) => part.x === point.x && part.y === point.y ? count + 1 : count, 0);
+
+        return excludeHead ? count > 1 : count > 0;
     }
 
     /**

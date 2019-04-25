@@ -3,6 +3,8 @@ import { randomInt } from './utils/random-int';
 
 /**
  * Class for control food positions
+ *
+ * @TODO fix generate food in worm body
  */
 export class FoodCourt {
     constructor(props = { }) {
@@ -20,12 +22,12 @@ export class FoodCourt {
      * Creates new food
      * @returns {FoodCourt}
      */
-    refill() {
+    refill(excluded = []) {
         while (this._food.length < this.props.size) {
             const x = randomInt(0, this.props.maxPosition.x);
             const y = randomInt(0, this.props.maxPosition.y);
 
-            if (!this._food.find((food) => food.x === x && food.y === y)) {
+            if (!(this._food.concat(excluded)).find((point) => point.x === x && point.y === y)) {
                 this._food.push(new Food({ x, y }));
             }
         }

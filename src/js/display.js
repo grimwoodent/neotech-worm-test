@@ -1,6 +1,7 @@
 export const DISPLAY_ELEMENT = {
     FOOD: 'food',
     WORM: 'worm',
+    WORM_HEAD: 'worm-head',
 };
 
 const CLASSES = {
@@ -11,6 +12,7 @@ const CLASSES = {
         MAIN: 'main_field__cell',
         FOOD: 'main_field__cell___food',
         WORM: 'main_field__cell___worm',
+        WORM_HEAD: 'main_field__cell___worm_head',
     },
 };
 
@@ -18,8 +20,8 @@ export class Display {
     constructor(props = { }) {
         this.props = Object.assign({
             size: {
-                x: 49,
-                y: 49,
+                x: 50,
+                y: 50,
             },
         }, props);
     }
@@ -66,6 +68,7 @@ export class Display {
         this._forEachCell((cell) => {
             cell.element.classList.remove(CLASSES.CELL.FOOD);
             cell.element.classList.remove(CLASSES.CELL.WORM);
+            cell.element.classList.remove(CLASSES.CELL.WORM_HEAD);
         });
 
         (elements[DISPLAY_ELEMENT.FOOD] || []).forEach((food) => {
@@ -73,6 +76,9 @@ export class Display {
         });
         (elements[DISPLAY_ELEMENT.WORM] || []).forEach((worm) => {
             this.field[worm.y][worm.x].element.classList.add(CLASSES.CELL.WORM);
+        });
+        (elements[DISPLAY_ELEMENT.WORM_HEAD] || []).forEach((worm) => {
+            this.field[worm.y][worm.x].element.classList.add(CLASSES.CELL.WORM_HEAD);
         });
     }
 

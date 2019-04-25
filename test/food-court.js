@@ -26,6 +26,19 @@ describe('Food court', () => {
         expect(foodCourt.getFood().length).to.be.deep.equals(10);
     });
 
+    it('shouldn`t place food to excluded points', () => {
+        const foodCourt = new FoodCourt({
+            size: 3,
+            maxPosition: {
+                x: 1,
+                y: 1,
+            },
+        });
+
+        foodCourt.refill([{ x: 0, y: 0 }]);
+        expect(foodCourt.getFood()).to.not.have.members([{ x: 0, y: 0 }]);
+    });
+
     it('should remove food at point', () => {
         const foodCourt = new FoodCourt({
             size: 10,
