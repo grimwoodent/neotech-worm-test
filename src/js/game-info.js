@@ -1,4 +1,4 @@
-const CLASSES = {
+export const GAME_INFO_CLASSES = {
     GAME_OVER: {
         SHOWN: 'game_over_info__wrap___shown',
     },
@@ -28,7 +28,7 @@ export class GameInfo {
      * @returns {GameInfo}
      */
     showGameOver() {
-        this._gameOverHolder.classList.add(CLASSES.GAME_OVER.SHOWN);
+        this._gameOverHolder.classList.add(GAME_INFO_CLASSES.GAME_OVER.SHOWN);
 
         return this;
     }

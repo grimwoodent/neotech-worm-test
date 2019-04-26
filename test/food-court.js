@@ -39,7 +39,7 @@ describe('Food court', () => {
         expect(foodCourt.getFood()).to.not.have.members([{ x: 0, y: 0 }]);
     });
 
-    it('should remove food at point', () => {
+    it('should remove food at point', (done) => {
         const foodCourt = new FoodCourt({
             size: 10,
         });
@@ -48,8 +48,11 @@ describe('Food court', () => {
 
         const food = foodCourt.getFood()[0];
 
-        foodCourt.eatFoodAt({ x: food.x, y: food.y });
-
-        expect(foodCourt.getFood().length).to.be.deep.equals(9);
+        foodCourt.eatFoodAt({ x: food.x, y: food.y }).then(() => {
+            expect(foodCourt.getFood().length).to.be.deep.equals(9);
+            done();
+        }, () => {
+            done('Food doesn`t removed');
+        });
     });
 });

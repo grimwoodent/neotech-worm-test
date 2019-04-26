@@ -4,7 +4,7 @@ export const DISPLAY_ELEMENT = {
     WORM_HEAD: 'worm-head',
 };
 
-const CLASSES = {
+export const DISPLAY_CLASSES = {
     ROW: {
         MAIN: 'main_field__row',
     },
@@ -24,6 +24,25 @@ export class Display {
                 y: 50,
             },
         }, props);
+
+        this._rowFactory = () => {
+            const row = document.createElement('div');
+
+            row.classList.add(DISPLAY_CLASSES.ROW.MAIN);
+
+            return row;
+        };
+        this._cellFactory = (point) => {
+            const x = point.x;
+            const y = point.y;
+            const element = document.createElement('div');
+
+            element.classList.add(DISPLAY_CLASSES.CELL.MAIN);
+            element.setAttribute('data-x', x);
+            element.setAttribute('data-y', y);
+
+            return { x, y, element };
+        };
     }
 
     /**
@@ -31,34 +50,34 @@ export class Display {
      * @param holder
      */
     generateField(holder) {
-        holder.parentNode.style.width = `${this.props.size.x * 10}px`;
-        holder.parentNode.style.height = `${this.props.size.y * 10}px`;
+        if (holder.parentNode && holder.parentNode.style) {
+            holder.parentNode.style.width = `${this.props.size.x * 10}px`;
+            holder.parentNode.style.height = `${this.props.size.y * 10}px`;
+        }
 
         this.field = (new Array(this.props.size.y))
             .fill(null)
             .map((r, y) => {
-                const row = document.createElement('div');
+                const row = this._rowFactory();
 
-                row.classList.add(CLASSES.ROW.MAIN);
                 holder.appendChild(row);
 
                 return (new Array(this.props.size.x))
                     .fill(null)
                     .map((c, x) => {
-                        const element = document.createElement('div');
+                        const element = this._cellFactory({ x ,y });
 
-                        element.classList.add(CLASSES.CELL.MAIN);
-                        element.setAttribute('data-x', x);
-                        element.setAttribute('data-y', y);
-                        row.appendChild(element);
+                        row.appendChild(element.element);
 
-                        return { x, y, element };
+                        return element;
                     })
             });
     }
 
     /**
      * Redraw all elements
+     *
+     * @returns {Display}
      */
     render(elements = { }) {
         if (!this.field) {
@@ -66,20 +85,22 @@ export class Display {
         }
 
         this._forEachCell((cell) => {
-            cell.element.classList.remove(CLASSES.CELL.FOOD);
-            cell.element.classList.remove(CLASSES.CELL.WORM);
-            cell.element.classList.remove(CLASSES.CELL.WORM_HEAD);
+            cell.element.classList.remove(DISPLAY_CLASSES.CELL.FOOD);
+            cell.element.classList.remove(DISPLAY_CLASSES.CELL.WORM);
+            cell.element.classList.remove(DISPLAY_CLASSES.CELL.WORM_HEAD);
         });
 
         (elements[DISPLAY_ELEMENT.FOOD] || []).forEach((food) => {
-            this.field[food.y][food.x].element.classList.add(CLASSES.CELL.FOOD);
+            this.field[food.y][food.x].element.classList.add(DISPLAY_CLASSES.CELL.FOOD);
         });
         (elements[DISPLAY_ELEMENT.WORM] || []).forEach((worm) => {
-            this.field[worm.y][worm.x].element.classList.add(CLASSES.CELL.WORM);
+            this.field[worm.y][worm.x].element.classList.add(DISPLAY_CLASSES.CELL.WORM);
         });
         (elements[DISPLAY_ELEMENT.WORM_HEAD] || []).forEach((worm) => {
-            this.field[worm.y][worm.x].element.classList.add(CLASSES.CELL.WORM_HEAD);
+            this.field[worm.y][worm.x].element.classList.add(DISPLAY_CLASSES.CELL.WORM_HEAD);
         });
+
+        return this;
     }
 
     /**

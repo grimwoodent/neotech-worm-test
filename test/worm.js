@@ -12,6 +12,14 @@ describe('Worm', () => {
             expect(head.x).to.be.equals(10);
             expect(head.y).to.be.equals(15);
         });
+
+        it('should add new one', () => {
+            const worm = new Worm({ position: { x: 10, y: 15 } });
+
+            worm.addNewOne();
+
+            expect(worm.getBody()[1]).to.be.deep.equals({ x: 10, y: 15, direction: WORM_DIRECTION.NONE });
+        });
     });
 
     describe('Direction', () => {

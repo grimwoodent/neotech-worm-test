@@ -1,5 +1,7 @@
 # Test task Worm
 
+[Try it alive](https://grimwoodent.github.io/neotech-worm-test/)
+
 ### Development
 
 Scripts: **JS ES6** & **Babel**  
@@ -26,7 +28,7 @@ npm run build-prod
 
 #### Test
 
-Used mocha and chai for tests
+Used **Mocha** and **Chai** for tests
 
 ```
 npm run test
